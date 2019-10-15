@@ -1,14 +1,9 @@
 <?php
 
-require_once(__DIR__ . '/../lib/config/config.php');
-
+require_once(__DIR__ . '/../lib/config.php');
 
 $app = new php_forum\controller\Index();
-$app->test();
-
-$_SESSION['login_status'] = "セッションテスト";
-
-//header('Location:' . SITE_URL . '/view/login.php');
+$app->run();
 
 ?>
 
@@ -20,6 +15,7 @@ $_SESSION['login_status'] = "セッションテスト";
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-  <h1>TEST</h1>
+  <h1>HOME</h1>
+  <input type='button' onclick="location.href='./login.php'" value="遷移">
 </body>
 </html>
