@@ -2,7 +2,7 @@
 
 namespace php_forum\controller;
 
-class Login extends \php_forum\controller\Controller{
+class SignUp extends \php_forum\controller\Controller{
 
   public function run() {
 
@@ -23,6 +23,12 @@ class Login extends \php_forum\controller\Controller{
     if($this->hasError()) {
       return;
     }
+
+    $user = new \php_forum\model\User();
+    $user->signup([
+      "email" => $_POST["email"],
+      "password" => $_POST["password"]
+    ]);
 
   }
 

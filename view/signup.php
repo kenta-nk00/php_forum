@@ -2,7 +2,7 @@
 
 require_once(__DIR__ . '/../lib/config.php');
 
-$app = new \php_forum\controller\Login();
+$app = new \php_forum\controller\SignUp();
 $app->run();
 
 ?>
@@ -11,7 +11,7 @@ $app->run();
 <html lang="ja">
 <head>
   <meta charset="utf-8">
-  <title>ログイン画面</title>
+  <title>会員登録</title>
   <link  rel="stylesheet" href="style/styles.css">
 </head>
 <body>
@@ -30,9 +30,9 @@ $app->run();
         <?= h($app->getErrors("password")); ?>
       </p>
       <p>
-        <input type="submit" value="ログイン">
+        <input type="submit" value="登録">
       </p>
-      <p class="fs12"><a href="./signup.php">Sign Up</a></p>
+      <p class="fs12"><a href="./login.php">Login</a></p>
     </form>
   </div>
 </body>

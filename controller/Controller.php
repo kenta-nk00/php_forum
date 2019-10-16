@@ -6,7 +6,7 @@ class Controller {
 
   private $_errors;
 
-  function __construct() {
+  public function __construct() {
     session_start();
 
     $this->_errors = array();

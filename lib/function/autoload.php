@@ -14,6 +14,7 @@ spl_autoload_register(function($class) {
   //インクルードパス生成
   $classfilepath = $rootfolderpath . str_replace('\\', '/', substr($class, strlen(APP_NAME)) . '.php');
 
+
   if (file_exists($classfilepath)) {
     require_once($classfilepath);
   }
