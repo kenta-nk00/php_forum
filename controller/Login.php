@@ -24,6 +24,30 @@ class Login extends \php_forum\controller\Controller{
       return;
     }
 
+    $userModel = new \php_forum\model\User();
+
+    try {
+      $user = $userModel->logIn(array(
+        "email" => $_POST["email"],
+        "password" => $_POST["password"]
+      ));
+    } catch(\php_forum\exception\NotFoundEmail $e) {
+      $this->setErrors('email', $e->getMessage());
+      return;
+    } catch(\php_forum\exception\UnmatchPassword $e) {
+      $this->setErrors('password', $e->getMessage());
+      return;
+    }
+
+    // セッション固定攻撃対策
+    session_regenerate_id(true);
+
+    // ログイン完了状態
+    $_SESSION["user"] = $user;
+
+    // ログインが完了したらトップ画面に遷移
+    header("Location: " . SITE_URL . "/view/index.php");
+    exit;
   }
 
   // フォーム送信内容チェック

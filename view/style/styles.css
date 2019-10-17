@@ -11,6 +11,12 @@ form {
   text-align: center;
 }
 
+form#logout {
+  text-align: right;
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
 .err {
   color:  #ff3d00;
   font-weight: bold;

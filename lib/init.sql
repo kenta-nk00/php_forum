@@ -11,3 +11,11 @@ create table users (
 );
 
 desc users;
+
+create table posts (
+  id int not null auto_increment primary key,
+  email varchar(255),
+  comment varchar(255)
+);
+
+desc posts;

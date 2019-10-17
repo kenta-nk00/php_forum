@@ -4,12 +4,21 @@ namespace php_forum\controller;
 
 class Controller {
 
+  private $_values;
   private $_errors;
 
   public function __construct() {
-    session_start();
 
-    $this->_errors = array();
+    $this->_values = Array();
+    $this->_errors = Array();
+  }
+
+  protected function setValues($key, $value) {
+    $this->_values[$key] = $value;
+  }
+
+  public function getValues() {
+    return $this->_values;
   }
 
   // ログイン中状態をセッション変数"user"で表す
@@ -26,6 +35,10 @@ class Controller {
   }
 
   protected function hasError() {
-    return count($this->_errors) > 0;
+    return !empty($this->_errors);
+  }
+
+  public function getUserInfo() {
+    return $this->isLoggedIn() ? $_SESSION['user'] : null;
   }
 }

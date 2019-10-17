@@ -24,12 +24,22 @@ class SignUp extends \php_forum\controller\Controller{
       return;
     }
 
-    $user = new \php_forum\model\User();
-    $user->signup([
-      "email" => $_POST["email"],
-      "password" => $_POST["password"]
-    ]);
+    $userModel = new \php_forum\model\User();
 
+    // データベース登録
+    try {
+      $userModel->signup(array(
+        "email" => $_POST["email"],
+        "password" => $_POST["password"]
+      ));
+    } catch(\php_forum\exception\DuplicateEmail $e) {
+      $this->setErrors('email', $e->getMessage());
+      return;
+    }
+
+    // 登録が完了したらログイン画面に遷移
+    header("Location: " . SITE_URL . "/view/login.php");
+    exit;
   }
 
   // フォーム送信内容チェック
