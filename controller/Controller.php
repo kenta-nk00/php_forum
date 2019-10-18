@@ -17,8 +17,8 @@ class Controller {
     $this->_values[$key] = $value;
   }
 
-  public function getValues() {
-    return $this->_values;
+  public function getValues($key) {
+    return isset($this->_values[$key]) ? $this->_values[$key] : Array();
   }
 
   // ログイン中状態をセッション変数"user"で表す
@@ -39,6 +39,6 @@ class Controller {
   }
 
   public function getUserInfo() {
-    return $this->isLoggedIn() ? $_SESSION['user'] : null;
+    return $this->isLoggedIn() ? $_SESSION['user'] : "";
   }
 }

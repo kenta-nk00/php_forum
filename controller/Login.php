@@ -5,7 +5,6 @@ namespace php_forum\controller;
 class Login extends \php_forum\controller\Controller{
 
   public function run() {
-
     // ログインしていればトップページに遷移
     if($this->isLoggedIn()) {
       header("Location: " . SITE_URL . "/view/index.php");
@@ -23,7 +22,7 @@ class Login extends \php_forum\controller\Controller{
     if($this->hasError()) {
       return;
     }
-
+    
     $userModel = new \php_forum\model\User();
 
     try {
