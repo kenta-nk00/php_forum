@@ -12,6 +12,7 @@ class Logout extends \php_forum\controller\Controller{
   }
 
   private function postProcess() {
+    $this->validate();
 
     // セッション変数削除
     $_SESSION = [];
@@ -27,4 +28,18 @@ class Logout extends \php_forum\controller\Controller{
     header("Location: " . SITE_URL . "/view/index.php");
   }
 
+  // フォーム送信内容チェック
+  private function validate() {
+    try {
+      $this->tokenValidate();
+    } catch(\php_forum\exception\InvalidToken $e) {
+      $this->setErrors("token", $e->getMessage());
+    }
+  }
+
+  private function tokenValidate() {
+    if(!isset($_POST["token"]) || $_POST["token"] !== $_SESSION["token"]) {
+      throw new \php_forum\exception\InvalidToken();
+    }
+  }
 }

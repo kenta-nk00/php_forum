@@ -22,7 +22,7 @@ class Login extends \php_forum\controller\Controller{
     if($this->hasError()) {
       return;
     }
-    
+
     $userModel = new \php_forum\model\User();
 
     try {
@@ -52,6 +52,12 @@ class Login extends \php_forum\controller\Controller{
   // フォーム送信内容チェック
   private function validate() {
     try {
+      $this->tokenValidate();
+    } catch(\php_forum\exception\InvalidToken $e) {
+      $this->setErrors("token", $e->getMessage());
+    }
+
+    try {
       $this->emailValidate();
     } catch(\php_forum\exception\EmptyEmail $e) {
       $this->setErrors("email", $e->getMessage());
@@ -65,6 +71,12 @@ class Login extends \php_forum\controller\Controller{
       $this->setErrors("password", $e->getMessage());
     } catch(\php_forum\exception\InvalidPassword $e) {
       $this->setErrors("password", $e->getMessage());
+    }
+  }
+
+  private function tokenValidate() {
+    if(!isset($_POST["token"]) || $_POST["token"] !== $_SESSION["token"]) {
+      throw new \php_forum\exception\InvalidToken();
     }
   }
 

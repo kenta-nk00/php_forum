@@ -49,11 +49,23 @@ class Index extends \php_forum\controller\Controller{
   // フォーム送信内容チェック
   private function validate() {
     try {
+      $this->tokenValidate();
+    } catch(\php_forum\exception\InvalidToken $e) {
+      $this->setErrors("token", $e->getMessage());
+    }
+
+    try {
       $this->commentValidate();
     } catch(\php_forum\exception\EmptyComment $e) {
       $this->setErrors("comment", $e->getMessage());
     } catch(\php_forum\exception\InvalidComment $e) {
       $this->setErrors("comment", $e->getMessage());
+    }
+  }
+
+  private function tokenValidate() {
+    if(!isset($_POST["token"]) || $_POST["token"] !== $_SESSION["token"]) {
+      throw new \php_forum\exception\InvalidToken();
     }
   }
 

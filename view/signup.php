@@ -20,6 +20,7 @@ $app->run();
       <p>
         <input type="text" name="email" value="" placeholder="email">
       </p>
+      <p class="err"><?= h($app->getErrors("token")); ?></p>
       <p class="err">
         <?= h($app->getErrors("email")); ?>
       </p>
@@ -29,6 +30,7 @@ $app->run();
       <p class="err">
         <?= h($app->getErrors("password")); ?>
       </p>
+      <input type="hidden" value="<?= h($_SESSION["token"]) ?>" name="token">
       <p>
         <input type="submit" value="登録">
       </p>
