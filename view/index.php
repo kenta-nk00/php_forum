@@ -27,7 +27,7 @@ $app->run();
       <p class="err"><?= h($app->getErrors("token")); ?></p>
       <input type="text" value="" name="comment">
       <input type="hidden" value="<?= h($_SESSION["token"]) ?>" name="token">
-      <input type="submit" value="投稿">
+      <input type="submit" value="送信">
     </form>
 
     <ul>
@@ -40,7 +40,7 @@ $app->run();
         </div>
       <?php } ?>
     </ul>
-
   </div>
+
 </body>
 </html>
