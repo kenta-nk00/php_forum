@@ -59,8 +59,17 @@ class User extends \php_forum\model\Model {
     $sql = "select * from posts order by id";
     $stmt = $this->db->query($sql);
 
-    $stmt->setFetchMode(\PDO::FETCH_ASSOC);
-    return $stmt->fetchAll();
+    $userdata = array();
+
+    while($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
+      $userdata[] = array(
+        "id" => $row["id"],
+        "email" => $row["email"],
+        "comment" => $row["comment"]
+      );
+    }
+
+    return ($userdata);
   }
 
 }

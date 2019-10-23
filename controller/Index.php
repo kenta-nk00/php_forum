@@ -12,10 +12,25 @@ class Index extends \php_forum\controller\Controller{
       exit;
     }
 
-    $this->setAllPost();
-
     if($_SERVER["REQUEST_METHOD"] === "POST") {
+      if(isset($POST['id']) === 1) {
+        try {
+          $this->tokenValidate();
+        } catch(\php_forum\exception\InvalidToken $e) {
+          $this->setErrors("token", $e->getMessage());
+        }
+
+        if($this->hasError()) {
+          return;
+        }
+
+        $this->setAllPost();
+        return;
+      }
+
       $this->postProcess();
+      $this->setAllPost();
+
     }
   }
 
@@ -24,7 +39,8 @@ class Index extends \php_forum\controller\Controller{
     $result = $userModel->getAllPost();
 
     if(!empty($result)) {
-      $this->setValues("Posts", $result);
+      echo json_encode($result);
+      // $this->setValues("Posts", $result);
     }
   }
 
@@ -41,9 +57,6 @@ class Index extends \php_forum\controller\Controller{
       "comment" => $_POST["comment"]
     ));
 
-    // 投稿が完了したらトップ画面に遷移
-    header("Location: " . SITE_URL . "/view/index.php");
-    exit;
   }
 
   // フォーム送信内容チェック
